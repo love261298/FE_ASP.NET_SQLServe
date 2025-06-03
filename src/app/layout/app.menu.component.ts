@@ -35,28 +35,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Blog',
                         icon: 'pi pi-fw pi-comment',
-                        items: [
-                            {
-                                label: 'List',
-                                icon: 'pi pi-fw pi-image',
-                                routerLink: ['/apps/blog/list']
-                            },
-                            {
-                                label: 'Detail',
-                                icon: 'pi pi-fw pi-list',
-                                routerLink: ['/apps/blog/detail']
-                            },
-                            {
-                                label: 'Edit',
-                                icon: 'pi pi-fw pi-pencil',
-                                routerLink: ['/apps/blog/edit']
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Calendar',
-                        icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/apps/calendar']
+                        routerLink: ['/apps/blog/list']
                     },
                     {
                         label: 'Chat',

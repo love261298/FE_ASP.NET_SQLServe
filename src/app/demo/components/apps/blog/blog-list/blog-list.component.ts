@@ -1,80 +1,74 @@
-import { Component } from '@angular/core';
+import { UserService } from './../../../../service/user.service';
+import { Subscription, filter } from 'rxjs';
+import { ImageService } from './../../../../service/image.service';
+import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Blog } from 'src/app/demo/api/blog';
+import { AppMessageService } from 'src/app/demo/service/app-message.service';
+import { BlogService } from 'src/app/demo/service/blog.service';
+import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'src/app/demo/service/message.service';
 
 @Component({
-    templateUrl: './blog-list.component.html'
+  templateUrl: './blog-list.component.html'
 })
-export class BlogListComponent {
+export class BlogListComponent implements OnInit {
+  constructor(
+    private blogService: BlogService,
+    private imageService: ImageService,
+    private msgService: AppMessageService,
+    private userService: UserService,
+    private http: HttpClient,
+    private messageService: MessageService
+  ) { }
+  totalBlogs: any[] = [];
+  users!: any;
+  messages!: any
+  async ngOnInit() {
+    await this.getUsers();
+    await this.getMessages();
+    this.getBlogs();
+  }
+  getBlogs() {
+    this.blogService.getAll().subscribe({
+      next: res => {
+        this.totalBlogs = res;
+        this.totalBlogs.forEach((blog: any) => {
+          blog.user = this.users.find((u: any) => {
+            return u.id === blog.userId
+          })
+          blog.messages = this.messages.filter((msg: any) => {
+            return blog.id === msg.blogId
+          })
+        });
+      }
+    })
+  }
+  getUsers() {
+    this.userService.getAll().subscribe({
+      next: res => {
+        this.users = res
+        console.log(this.users)
+      }
+    })
+  }
+  getMessages() {
+    this.messageService.getAll().subscribe({
+      next: res => {
+        this.messages = res
+        this.messages.forEach((msg: any) => {
+          msg.user = this.users.find((u: any) => {
+            return u.id === msg.userId
+          })
+        })
+        console.log(this.messages)
+      }
+    })
+  }
+  sortOptions: SelectItem[] = [
+    { label: 'Most Shared', value: 'share' },
+    { label: 'Most Commented', value: 'comment' }
+  ];
 
-    sortOptions: SelectItem[] = [
-        { label: 'Most Shared', value: 'share' },
-        { label: 'Most Commented', value: 'comment' }
-    ];
-
-    sortField: string = '';
-
-    totalBlogs: Blog[] = [
-        {
-            coverImage: "assets/demo/images/blog/blog-1.png",
-            profile: "assets/demo/images/avatar/circle/avatar-f-1.png",
-            title: "Blog",
-            description: "Ornare egestas pellentesque facilisis in a ultrices erat diam metus integer sed",
-            comment: 2,
-            share: 7,
-            day: "15",
-            month: "October"
-        },
-        {
-            coverImage: "assets/demo/images/blog/blog-2.png",
-            profile: "assets/demo/images/avatar/circle/avatar-f-2.png",
-            title: "Magazine",
-            description: "Magna iaculis sagittis, amet faucibus scelerisque non ornare non in penatibus ",
-            comment: 5,
-            share: 1,
-            day: "20",
-            month: "Nov"
-        },
-        {
-            coverImage: "assets/demo/images/blog/blog-3.png",
-            profile: "assets/demo/images/avatar/circle/avatar-m-1.png",
-            title: "Science",
-            description: "Purus mattis mi, libero maecenas volutpat quis a morbi arcu pharetra, mollis",
-            comment: 2,
-            share: 6,
-            day: "23",
-            month: "Oct"
-        },
-        {
-            coverImage: "assets/demo/images/blog/blog-4.png",
-            profile: "assets/demo/images/avatar/circle/avatar-m-1.png",
-            title: "Blog",
-            description: "Curabitur vitae sit justo facilisi nec, sodales proin aliquet libero volutpat nunc",
-            comment: 5,
-            share: 5,
-            day: "14",
-            month: "Dec"
-        },
-        {
-            coverImage: "assets/demo/images/blog/blog-5.png",
-            profile: "assets/demo/images/avatar/circle/avatar-f-3.png",
-            title: "Magazine",
-            description: "Id eget arcu suspendisse ullamcorper dolor lobortis dui et morbi penatibus quam",
-            comment: 4,
-            share: 1,
-            day: "05",
-            month: "Apr"
-        },
-        {
-            coverImage: "assets/demo/images/blog/blog-6.png",
-            profile: "assets/demo/images/avatar/circle/avatar-m-3.png",
-            title: "Science",
-            description: "Sagittis hendrerit laoreet dignissim sed auctor sit pellentesque vel diam iaculis et",
-            comment: 1,
-            share: 3,
-            day: "12",
-            month: "Nov"
-        }
-    ];
-
+  sortField: string = '';
 }

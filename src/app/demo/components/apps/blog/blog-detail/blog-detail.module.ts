@@ -8,6 +8,7 @@ import { NewCommentComponent } from "./new-comment/new-comment.component";
 import { BlogDetailComponent } from "./blog-detail.component";
 import { BlogDetailRoutingModule } from "./blog-detail-routing.module";
 import { RippleModule } from "primeng/ripple";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { RippleModule } from "primeng/ripple";
         ButtonModule,
         InputTextModule,
         InputTextareaModule,
-        RippleModule
+        RippleModule,
+        FormsModule
     ],
     declarations: [BlogCommentsComponent, NewCommentComponent, BlogDetailComponent]
 })

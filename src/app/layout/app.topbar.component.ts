@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
+import { Router } from '@angular/router';
+import { AppMessageService } from '../demo/service/app-message.service';
 
 @Component({
     selector: 'app-topbar',
@@ -11,7 +13,7 @@ export class AppTopbarComponent {
 
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
 
-    constructor(public layoutService: LayoutService, public el: ElementRef) {}
+    constructor(public layoutService: LayoutService, public el: ElementRef, private router: Router, private msgService: AppMessageService) { }
 
     onMenuButtonClick() {
         this.layoutService.onMenuToggle();
@@ -32,9 +34,16 @@ export class AppTopbarComponent {
     get logo() {
         const logo =
             this.layoutService.config().menuTheme === 'white' ||
-            this.layoutService.config().menuTheme === 'orange'
+                this.layoutService.config().menuTheme === 'orange'
                 ? 'dark'
                 : 'white';
         return logo;
+    }
+
+    logout() {
+        console.log('ok')
+        localStorage.clear()
+        this.router.navigate(['/auth/login']);
+        this.msgService.success("Đăng xuất thành công!")
     }
 }
