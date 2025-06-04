@@ -53,7 +53,7 @@ export class BlogEditComponent implements OnInit {
     })
   }
   getImages() {
-    this.photoService.getImages().then(res => {
+    this.photoService.getImagesBlog().then(res => {
       this.images = res
     })
   }
