@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from './../../../../service/image.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from 'src/app/demo/service/blog.service';
 import { PhotoService } from 'src/app/demo/service/photo.service';
 import { AppMessageService } from 'src/app/demo/service/app-message.service';
@@ -24,15 +24,16 @@ export class BlogEditComponent implements OnInit {
     description: ['', [Validators.required]],
   });
   constructor(
-    private route: ActivatedRoute,
+    private routeParam: ActivatedRoute,
     private imageService: ImageService,
     private photoService: PhotoService,
     private blogService: BlogService,
     private fb: FormBuilder,
-    private mgsService: AppMessageService
+    private mgsService: AppMessageService,
+    private router: Router
   ) { }
   ngOnInit() {
-    this.blogId = this.route.snapshot.paramMap.get('id');
+    this.blogId = this.routeParam.snapshot.paramMap.get('id');
     this.isEdit = !!this.blogId;
     this.getImages()
     if (this.isEdit) {
@@ -55,6 +56,7 @@ export class BlogEditComponent implements OnInit {
   getImages() {
     this.photoService.getImagesBlog().then(res => {
       this.images = res
+      console.log(this.images)
     })
   }
   onSubmit() {
@@ -68,7 +70,7 @@ export class BlogEditComponent implements OnInit {
         this.blogService.update(this.blog.id, data).subscribe({
           next: res => {
             this.mgsService.success("Cập nhật thành công!")
-            this.getBlog()
+            this.router.navigateByUrl("/apps/blog/list")
           }
         })
       } else {
@@ -78,7 +80,7 @@ export class BlogEditComponent implements OnInit {
             this.blogService.update(this.blog.id, data).subscribe({
               next: res => {
                 this.mgsService.success("Cập nhật thành công!")
-                this.getBlog()
+                this.router.navigateByUrl("/apps/blog/list")
               }
             })
           }

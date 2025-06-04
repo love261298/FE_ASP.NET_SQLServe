@@ -27,10 +27,10 @@
     </form>
 </div>
 <p-dialog header="Choose Image" [modal]="true" [(visible)]="isSelectImages" [style]="{ width: '50%' }">
-    <div class="flex flex-wrap gap-3">
+    <div class="flex flex-wrap gap-4">
         <div *ngFor="let image of images; let i = index" (click)="imageUrl = image.itemImageSrc;selectedIndex = i; isSelectImages = false"
-            class="cursor-pointer hover:opacity-60" [ngClass]="{'opacity-60': selectedIndex == i}">
-            <img [src]="image.itemImageSrc" alt="ảnh">
+            class="cursor-pointer hover:opacity-60 w-min" [ngClass]="{'opacity-60': selectedIndex == i}">
+            <img [src]="image.itemImageSrc" alt="ảnh" style="object-fit: contain;">
         </div>
     </div>
 </p-dialog>
