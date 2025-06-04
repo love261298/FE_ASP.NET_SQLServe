@@ -82,7 +82,6 @@ export class AppConfigComponent implements OnInit {
         return this.layoutService.config().menuTheme;
     }
     set menuTheme(_val: string) {
-        console.log(_val);
         this.layoutService.config.update((config) => ({
             ...config,
             menuTheme: _val,

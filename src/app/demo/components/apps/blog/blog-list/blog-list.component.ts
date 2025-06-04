@@ -48,7 +48,6 @@ export class BlogListComponent implements OnInit {
     this.userService.getAll().subscribe({
       next: res => {
         this.users = res
-        console.log(this.users)
       }
     })
   }
@@ -61,7 +60,6 @@ export class BlogListComponent implements OnInit {
             return u.id === msg.userId
           })
         })
-        console.log(this.messages)
       }
     })
   }

@@ -9,7 +9,6 @@ export class AuthService {
   private apiUrl = environment.API_URL;
   constructor(public http: HttpClient) { }
   login(account:any){
-    console.log(account)
     return this.http.post<any>(this.apiUrl + '/login', account)
   }
   register(account:any){

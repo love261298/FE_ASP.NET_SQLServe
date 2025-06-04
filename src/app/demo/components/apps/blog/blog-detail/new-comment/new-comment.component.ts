@@ -28,8 +28,7 @@ export class NewCommentComponent implements OnInit {
                 this.blogChange.emit(this.blog)
                 this.description = '';
                 this.msgService.success("Gửi tin nhắn thành công!")
-            },
-            error: err => console.log(err)
+            }
         })
     }
 }

@@ -41,7 +41,6 @@ export class AppTopbarComponent {
     }
 
     logout() {
-        console.log('ok')
         localStorage.clear()
         this.router.navigate(['/auth/login']);
         this.msgService.success("Đăng xuất thành công!")

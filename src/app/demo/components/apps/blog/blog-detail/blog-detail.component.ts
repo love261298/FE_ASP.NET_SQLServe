@@ -25,13 +25,12 @@ export class BlogDetailComponent {
     this.blogId = this.route.snapshot.paramMap.get('id');
     await this.getUsers();
     await this.getMessages();
-    this.getBlog()
+    await this.getBlog()
   }
   getUsers() {
     this.userService.getAll().subscribe({
       next: res => {
         this.users = res
-        console.log(this.users)
       }
     })
   }
@@ -44,7 +43,6 @@ export class BlogDetailComponent {
             return u.id === msg.userId
           })
         })
-        console.log(this.messages)
       }
     })
   }
@@ -59,35 +57,7 @@ export class BlogDetailComponent {
         const today = new Date();
         const createdAt = new Date(this.blog.createdAt);
         this.blog.dateAgo = today.getTime() - createdAt.getTime();
-        console.log(this.blog)
       }
     })
   }
-  comments: any[] = [
-    {
-      image: "assets/demo/images/avatar/circle/avatar-f-3@2x.png",
-      name: "Courtney Henry",
-      date: "03 February 2022",
-      description: "Reprehenderit ut voluptas sapiente ratione nostrum est."
-    },
-    {
-      image: "assets/demo/images/avatar/circle/avatar-f-1@2x.png",
-      name: "Esther Howard",
-      date: "03 February 2022",
-      description: "How likely are you to recommend our company to your friends and family ?"
-    },
-    {
-      image: "assets/demo/images/avatar/circle/avatar-f-4@2x.png",
-      name: "Darlene Robertson",
-      date: "03 February 2022",
-      description: "Quo quia sit nihil nemo doloremque et."
-    },
-    {
-      image: "assets/demo/images/avatar/circle/avatar-f-5@2x.png",
-      name: "Esther Howard",
-      date: "03 February 2022",
-      description: "How likely are you to recommend our company to your friends and family ?"
-    }
-  ];
-
 }

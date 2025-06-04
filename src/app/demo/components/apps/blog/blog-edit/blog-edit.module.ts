@@ -9,6 +9,8 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { RippleModule } from "primeng/ripple";
 import { BlogEditRoutingModule } from "./blog-edit-routing.module";
 import { BlogEditComponent } from "./blog-edit.component";
+import { DialogModule } from 'primeng/dialog';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
@@ -20,7 +22,9 @@ import { BlogEditComponent } from "./blog-edit.component";
         RippleModule,
         ChipModule,
         EditorModule,
-        BlogEditRoutingModule
+        BlogEditRoutingModule,
+        DialogModule,
+        ReactiveFormsModule
     ],
     declarations: [BlogEditComponent]
 })
