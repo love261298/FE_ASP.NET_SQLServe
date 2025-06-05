@@ -18,6 +18,7 @@ export class BlogEditComponent implements OnInit {
   images: any[] = [];
   blogId: any
   blog: any
+  isDeleteBlog: boolean = false;
   selectedIndex: any;
   postForm: FormGroup = this.fb.group({
     title: ['', [Validators.required]],
@@ -33,17 +34,18 @@ export class BlogEditComponent implements OnInit {
     private router: Router
   ) { }
   ngOnInit() {
-    this.blogId = this.routeParam.snapshot.paramMap.get('id');
-    this.isEdit = !!this.blogId;
+    this.routeParam.queryParams.subscribe(params => {
+      this.blogId = params['id'];
+      console.log(params)
+    });
     this.getImages()
-    if (this.isEdit) {
+    if (this.blogId) {
       this.getBlog();
     }
   }
   getBlog() {
     this.blogService.getById(this.blogId).subscribe({
       next: res => {
-        console.log(res)
         this.blog = res;
         this.postForm.patchValue({
           title: res.title,
@@ -56,7 +58,6 @@ export class BlogEditComponent implements OnInit {
   getImages() {
     this.photoService.getImagesBlog().then(res => {
       this.images = res
-      console.log(this.images)
     })
   }
   onSubmit() {
@@ -77,16 +78,38 @@ export class BlogEditComponent implements OnInit {
         this.imageService.create(JSON.stringify(this.imageUrl)).subscribe({
           next: res => {
             data.imageId = res.imageId
-            this.blogService.update(this.blog.id, data).subscribe({
-              next: res => {
-                this.mgsService.success("Cập nhật thành công!")
-                this.router.navigateByUrl("/apps/blog/list")
-              }
-            })
+            if (!!this.blogId) {
+              this.blogService.update(this.blog.id, data).subscribe({
+                next: res => {
+                  this.mgsService.success("Cập nhật thành công!")
+                  this.router.navigateByUrl("/apps/blog/list")
+                }
+              })
+            } else {
+              this.blogService.create(data).subscribe({
+                next: res => {
+                  this.mgsService.success("Tạo mới thành công!")
+                  this.router.navigateByUrl("/apps/blog/list")
+                }
+              })
+            }
           }
         })
       }
     }
+  }
+
+  onDelete() {
+    console.log(this.blog.id)
+    this.blogService.deleteById(this.blog.id).subscribe({
+      next: res => {
+        this.mgsService.success("Xóa thành công!")
+        this.router.navigateByUrl('/apps/blog/list')
+      },
+      error: err => {
+        this.mgsService.error("Xóa thất bại!")
+      }
+    })
   }
 }
 

@@ -1,6 +1,6 @@
 <div class="card">
     <span class="block text-900 font-bold text-xl mb-4">
-        <ng-container *ngIf="isEdit; else create">Edit Post</ng-container>
+        <ng-container *ngIf="blogId; else create">Edit Post</ng-container>
         <ng-template #create>Create a new post</ng-template>
     </span>
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
@@ -19,18 +19,25 @@
                     (click)="isSelectImages = true"></button>
             </ng-template>
         </div>
-        <div class="flex justify-content-between gap-3">
-            <button pButton pRipple class="p-button-danger flex-1 p-button-outlined" label="Discard"
-                icon="pi pi-fw pi-trash"></button>
-            <button [disabled]="!postForm.valid" type="submit" pButton pRipple class="p-button-primary flex-1" label="Publish" icon="pi pi-fw pi-check"></button>
+        <div class="flex justify-content-end gap-3">
+            <button pButton pRipple class="p-button-danger p-button-outlined" label="Discard" icon="pi pi-fw pi-trash"
+                type="button" (click)="isDeleteBlog = true" [disabled]="!blogId"></button>
+            <button [disabled]="!postForm.valid" type="submit" pButton pRipple class="p-button-primary" label="Publish"
+                icon="pi pi-fw pi-check"></button>
         </div>
     </form>
 </div>
 <p-dialog header="Choose Image" [modal]="true" [(visible)]="isSelectImages" [style]="{ width: '50%' }">
     <div class="flex flex-wrap gap-4">
-        <div *ngFor="let image of images; let i = index" (click)="imageUrl = image.itemImageSrc;selectedIndex = i; isSelectImages = false"
+        <div *ngFor="let image of images; let i = index"
+            (click)="imageUrl = image.itemImageSrc;selectedIndex = i; isSelectImages = false"
             class="cursor-pointer hover:opacity-60 w-min" [ngClass]="{'opacity-60': selectedIndex == i}">
             <img [src]="image.itemImageSrc" alt="ảnh" style="object-fit: contain;">
         </div>
     </div>
+</p-dialog>
+<p-dialog header="Bạn có đồng ý xóa blog này không!" [modal]="true" [(visible)]="isDeleteBlog"
+    [style]="{ width: '20%' }">
+    <button pButton pRipple class="w-full p-button-danger p-button-outlined" label="Confirm" icon="pi pi-fw pi-trash"
+        type="button" (click)="onDelete()"></button>
 </p-dialog>

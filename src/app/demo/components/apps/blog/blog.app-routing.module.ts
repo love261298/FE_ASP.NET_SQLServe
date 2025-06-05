@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
     imports: [RouterModule.forChild([
         { path: 'list', data: { breadcrumb: 'List' }, loadChildren: () => import('./blog-list/blog-list.module').then(m => m.BlogListModule) },
         { path: 'detail/:id', data: { breadcrumb: 'Detail' }, loadChildren: () => import('./blog-detail/blog-detail.module').then(m => m.BlogDetailModule) },
-        { path: 'edit/:id', data: { breadcrumb: 'Edit' }, loadChildren: () => import('./blog-edit/blog-edit.module').then(m => m.BlogEditModule) },
+        { path: 'edit', data: { breadcrumb: 'Edit' }, loadChildren: () => import('./blog-edit/blog-edit.module').then(m => m.BlogEditModule) },
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

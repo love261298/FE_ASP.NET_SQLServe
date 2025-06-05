@@ -27,6 +27,6 @@ export abstract class BaseService {
     return this.http.put<any>(`${this.apiUrl}/${this.url}/${id}`, data);
   }
   deleteById(id: any): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${this.url}/`, id);
+    return this.http.delete<any>(`${this.apiUrl}/${this.url}/${id}`);
   }
 }

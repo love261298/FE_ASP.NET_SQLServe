@@ -31,7 +31,8 @@
     <div class="flex flex-column sm:flex-row my-8 w-full gap-3">
         <button pButton pRipple icon="pi pi-twitter" class="p-button-secondary" label="Twitter"></button>
         <button pButton pRipple icon="pi pi-facebook" class="p-button-secondary" label="Facebook"></button>
-        <button [routerLink]="['/apps/blog/edit', blog?.id]" pButton pRipple icon="pi pi-pencil" class="sm:ml-auto" label="Edit Post"></button>
+        <ng-container *ngIf="isMe"><button [routerLink]="['/apps/blog/edit']" [queryParams]="{ id: blogId}" pButton
+                pRipple icon="pi pi-pencil" class="sm:ml-auto" label="Edit Post"></button></ng-container>
     </div>
     <app-blog-comments [comments]="blog?.messages"></app-blog-comments>
     <app-new-comment [(blog)]="blog"></app-new-comment>

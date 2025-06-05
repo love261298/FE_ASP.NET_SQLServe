@@ -1,9 +1,10 @@
 <div class="card">
-    <p-dataView [value]="totalBlogs" [paginator]="true" [rows]="3" filterBy="title" [sortField]="sortField" [sortOrder]="-1" layout="grid">
+    <p-dataView [value]="totalBlogs" [paginator]="true" [rows]="3" filterBy="title" layout="grid">
         <ng-template pTemplate="header">
             <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between gap-3">
                 <span class="text-xl text-900 font-semibold">Articles</span>
-                <p-dropdown [options]="sortOptions" [(ngModel)]="sortField" placeholder="Sort by" styleClass="w-full md:w-15rem"></p-dropdown>
+                <button pButton pRipple class="p-button-primary" label="Create"
+                    icon="pi pi-fw pi-pencil" type="button" (click)="onCreateBlog()"></button>
             </div>
         </ng-template>
 

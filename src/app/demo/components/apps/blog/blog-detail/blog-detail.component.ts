@@ -1,4 +1,4 @@
-import { filter } from 'rxjs';
+import { filter, forkJoin } from 'rxjs';
 import { Message } from './../../../../api/message';
 import { Blog } from './../../../../api/blog';
 import { UserService } from './../../../../service/user.service';
@@ -21,43 +21,38 @@ export class BlogDetailComponent {
   blogId!: any;
   users!: any;
   messages!: any;
-  async ngOnInit() {
+  isMe: boolean = false;
+  ngOnInit() {
     this.blogId = this.route.snapshot.paramMap.get('id');
-    await this.getUsers();
-    await this.getMessages();
-    await this.getBlog()
-  }
-  getUsers() {
-    this.userService.getAll().subscribe({
-      next: res => {
-        this.users = res
+
+    forkJoin({
+      users: this.userService.getAll(),
+      messages: this.messageService.getAll()
+    }).subscribe({
+      next: ({ users, messages }) => {
+        this.users = users;
+        this.messages = messages.map((msg: any) => ({
+          ...msg,
+          user: users.find((u: any) => u.id === msg.userId)
+        }));
+        this.getBlog();
       }
-    })
+    });
   }
-  getMessages() {
-    this.messageService.getAll().subscribe({
-      next: res => {
-        this.messages = res
-        this.messages.forEach((msg: any) => {
-          msg.user = this.users.find((u: any) => {
-            return u.id === msg.userId
-          })
-        })
-      }
-    })
-  }
+
   getBlog() {
     this.blogService.getById(this.blogId).subscribe({
       next: res => {
-        this.blog = res
-        this.blog.user = this.users.find((u: any) => { return this.blog.userId === u.id })
-        this.blog.messages = this.messages.filter((msg: any) => {
-          return msg.blogId === this.blog.id
-        })
+        this.blog = res;
+        this.blog.user = this.users.find((u: any) => this.blog.userId === u.id);
+        this.blog.messages = this.messages.filter((msg: any) => msg.blogId === this.blog.id);
+
         const today = new Date();
         const createdAt = new Date(this.blog.createdAt);
         this.blog.dateAgo = today.getTime() - createdAt.getTime();
+
+        this.isMe = localStorage.getItem("userId") == this.blog.userId;
       }
-    })
+    });
   }
 }

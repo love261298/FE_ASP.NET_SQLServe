@@ -1,5 +1,5 @@
 <div class="p-3">
-    <div class="h-27rem surface-100 cursor-pointer z-index border-round" (click)="navigateToDetail()">
+    <div class="h-auto surface-100 cursor-pointer z-index border-round" (click)="navigateToDetail()">
         <div class="relative">
             <img [src]="blog.image?.imageUrl" class="w-full" />
             <img [src]="blog.user?.image?.imageUrl" class="flex absolute w-4rem h-4rem"
@@ -7,8 +7,7 @@
         </div>
         <div class="p-3">
             <div class="text-900 font-semibold text-xl mb-3">{{blog.title}}</div>
-            <p class="text-700 text-lg mt-0 mb-5">{{blog.description}}</p>
-
+            <p class="text-700 text-lg mt-0 mb-5 overflow-hidden text-overflow-ellipsis white-space-nowrap">{{blog.description}}</p>
             <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span class="flex align-items-center text-900">
                     <i class="pi pi-comment mr-2"></i>

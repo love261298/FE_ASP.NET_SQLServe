@@ -8,6 +8,7 @@ import { AppMessageService } from 'src/app/demo/service/app-message.service';
 import { BlogService } from 'src/app/demo/service/blog.service';
 import { HttpClient } from '@angular/common/http';
 import { MessageService } from 'src/app/demo/service/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './blog-list.component.html'
@@ -15,10 +16,8 @@ import { MessageService } from 'src/app/demo/service/message.service';
 export class BlogListComponent implements OnInit {
   constructor(
     private blogService: BlogService,
-    private imageService: ImageService,
-    private msgService: AppMessageService,
+    private router: Router,
     private userService: UserService,
-    private http: HttpClient,
     private messageService: MessageService
   ) { }
   totalBlogs: any[] = [];
@@ -63,10 +62,7 @@ export class BlogListComponent implements OnInit {
       }
     })
   }
-  sortOptions: SelectItem[] = [
-    { label: 'Most Shared', value: 'share' },
-    { label: 'Most Commented', value: 'comment' }
-  ];
-
-  sortField: string = '';
+  onCreateBlog() {
+    this.router.navigate(["/apps/blog/edit", { queryParams: { id: null} }]);
+  }
 }

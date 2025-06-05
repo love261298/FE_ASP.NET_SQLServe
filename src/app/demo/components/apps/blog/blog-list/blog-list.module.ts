@@ -7,6 +7,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { BlogListCardComponent } from "./blog-list-card/blog-list-card.component";
 import { BlogListComponent } from "./blog-list.component";
 import { BlogListRoutingModule } from "./blog-list-routing.module";
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { BlogListRoutingModule } from "./blog-list-routing.module";
         AvatarModule,
         BlogListRoutingModule,
         DataViewModule,
-        DropdownModule
+        DropdownModule,
+        ButtonModule
     ],
     declarations: [BlogListComponent, BlogListCardComponent]
   })
