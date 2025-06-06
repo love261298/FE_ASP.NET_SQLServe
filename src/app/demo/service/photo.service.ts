@@ -17,6 +17,13 @@ export class PhotoService {
 			.then(data => data);
 	}
 
+	getAvarta() {
+		return this.http.get<any>('assets/demo/data/avatar.json')
+			.toPromise()
+			.then(res => res.data)
+			.then(data => data);
+	}
+
 	getImagesBlog() {
 		return this.http.get<any>('assets/demo/data/imagesBlog.json')
 			.toPromise()

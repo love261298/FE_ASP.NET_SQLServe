@@ -35,5 +35,5 @@
                 pRipple icon="pi pi-pencil" class="sm:ml-auto" label="Edit Post"></button></ng-container>
     </div>
     <app-blog-comments [comments]="blog?.messages"></app-blog-comments>
-    <app-new-comment [(blog)]="blog"></app-new-comment>
+    <app-new-comment [blog]="blog" (blogChange)="getBlog()"></app-new-comment>
 </div>

@@ -24,7 +24,10 @@ export class BlogDetailComponent {
   isMe: boolean = false;
   ngOnInit() {
     this.blogId = this.route.snapshot.paramMap.get('id');
+    this.getBlog()
+  }
 
+  getBlog() {
     forkJoin({
       users: this.userService.getAll(),
       messages: this.messageService.getAll()
@@ -35,23 +38,19 @@ export class BlogDetailComponent {
           ...msg,
           user: users.find((u: any) => u.id === msg.userId)
         }));
-        this.getBlog();
-      }
-    });
-  }
+        this.blogService.getById(this.blogId).subscribe({
+          next: res => {
+            this.blog = res;
+            this.blog.user = this.users.find((u: any) => this.blog.userId === u.id);
+            this.blog.messages = this.messages.filter((msg: any) => msg.blogId === this.blog.id);
 
-  getBlog() {
-    this.blogService.getById(this.blogId).subscribe({
-      next: res => {
-        this.blog = res;
-        this.blog.user = this.users.find((u: any) => this.blog.userId === u.id);
-        this.blog.messages = this.messages.filter((msg: any) => msg.blogId === this.blog.id);
+            const today = new Date();
+            const createdAt = new Date(this.blog.createdAt);
+            this.blog.dateAgo = today.getTime() - createdAt.getTime();
 
-        const today = new Date();
-        const createdAt = new Date(this.blog.createdAt);
-        this.blog.dateAgo = today.getTime() - createdAt.getTime();
-
-        this.isMe = localStorage.getItem("userId") == this.blog.userId;
+            this.isMe = localStorage.getItem("userId") == this.blog.userId;
+          }
+        });
       }
     });
   }

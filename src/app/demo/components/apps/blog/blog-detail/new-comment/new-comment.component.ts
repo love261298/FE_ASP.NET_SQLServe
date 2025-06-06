@@ -25,7 +25,7 @@ export class NewCommentComponent implements OnInit {
         this.messageService.create(data).subscribe({
             next: res =>{
                 this.blog.messages.push(res)
-                this.blogChange.emit(this.blog)
+                this.blogChange.emit()
                 this.description = '';
                 this.msgService.success("Gửi tin nhắn thành công!")
             }

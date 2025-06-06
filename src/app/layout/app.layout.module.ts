@@ -27,7 +27,6 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { AppSearchComponent } from './app.search.component';
 import { AppFooterComponent } from './app.footer.component';
-
 @NgModule({
     declarations: [
         AppLayoutComponent,
@@ -59,7 +58,7 @@ import { AppFooterComponent } from './app.footer.component';
         DividerModule,
         AppConfigModule,
         DialogModule,
-        StyleClassModule
+        StyleClassModule,
     ]
 })
 export class AppLayoutModule { }

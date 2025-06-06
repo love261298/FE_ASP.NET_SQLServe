@@ -9,7 +9,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BadgeModule } from 'primeng/badge';
-import { UserCardComponent } from './user-card/user-card.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { ChatService } from './service/chat.service';
 import { RippleModule } from 'primeng/ripple';
@@ -24,16 +23,15 @@ import { RippleModule } from 'primeng/ripple';
         ButtonModule,
         BadgeModule,
         OverlayPanelModule,
-        RippleModule
+        RippleModule,
     ],
     declarations: [
         ChatSidebarComponent,
         ChatAppComponent,
-        UserCardComponent,
         ChatBoxComponent
     ],
     providers: [
-        ChatService
+        ChatService,
     ]
 })
 export class ChatAppModule { }

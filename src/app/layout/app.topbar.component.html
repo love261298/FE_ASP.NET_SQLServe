@@ -1,93 +1,161 @@
 <div class="layout-topbar">
-    <div class="topbar-left">
-        <a #menubutton tabindex="0" class="menu-button p-trigger" (click)="onMenuButtonClick()">
-            <i class="pi pi-chevron-left"></i>
+  <div class="topbar-left">
+    <a #menubutton tabindex="0" class="menu-button p-trigger" (click)="onMenuButtonClick()">
+      <i class="pi pi-chevron-left"></i>
+    </a>
+    <img class="horizontal-logo" [routerLink]="['/']" [src]="'assets/layout/images/logo-'+ logo + '.svg'"
+      alt="diamond-layout" />
+    <span class="topbar-separator"></span>
+    <app-breadcrumb></app-breadcrumb>
+    <img class="mobile-logo" [src]="'assets/layout/images/logo-'+ logo + '.svg'" alt="diamond-layout" />
+  </div>
+
+  <div class="layout-topbar-menu-section">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="layout-mask modal-in"></div>
+
+  <div class="topbar-right">
+    <ul class="topbar-menu">
+      <li class="search-item">
+        <a tabindex="0" (click)="onSearchClick()" class="p-trigger">
+          <i class="pi pi-search"></i>
         </a>
-        <img class="horizontal-logo" [routerLink]="['/']" [src]="'assets/layout/images/logo-'+ logo + '.svg'" alt="diamond-layout"/>
-        <span class="topbar-separator"></span>
-        <app-breadcrumb></app-breadcrumb>
-        <img class="mobile-logo" [src]="'assets/layout/images/logo-'+ logo + '.svg'" alt="diamond-layout"/>
-    </div>
-
-    <div class="layout-topbar-menu-section">
-        <app-sidebar></app-sidebar>
-    </div>
-    <div class="layout-mask modal-in"></div>
-
-    <div class="topbar-right">
-        <ul class="topbar-menu">
-            <li class="search-item">
-                <a tabindex="0" (click)="onSearchClick()" class="p-trigger">
-                    <i class="pi pi-search"></i>
-                </a>
-            </li>
-            <li class="static sm:relative">
-                <a tabindex="0" pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
-                    <i class="pi pi-bell"></i>
-                    <span class="topbar-badge">5</span>
-                </a>
-                <ul class="list-none p-3 m-0 border-round shadow-2 absolute surface-overlay hidden origin-top w-full sm:w-19rem mt-2 right-0 z-5 top-auto">
-                    <li>
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-shopping-cart mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">New Order</span>
-                                <span class="text-color-secondary">You have <strong>3</strong> new orders.</span>
-                            </span>
-                        </a>
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-check-square mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">Withdrawn Completed</span>
-                                <span class="text-color-secondary">Funds are on their way.</span>
-                            </span>
-                        </a>
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-chart-line mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">Monthly Reports</span>
-                                <span class="text-color-secondary">Monthly Reports are ready.</span>
-                            </span>
-                        </a>
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-comments mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">Comments</span>
-                                <span class="text-color-secondary"><strong>2</strong> new comments.</span>
-                            </span>
-                        </a>
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-exclamation-circle mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">Chargeback Request</span>
-                                <span class="text-color-secondary"><strong>1</strong> to review.</span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="profile-item static sm:relative">
-                <a tabindex="0" pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
-                    <img src="assets/demo/images/avatar/profile.jpg" alt="diamond-layout" class="profile-image"/>
-                    <span class="profile-name">Amelia Stone</span>
-                </a>
-                <ul class="list-none p-3 m-0 border-round shadow-2 absolute surface-overlay hidden origin-top w-full sm:w-12rem mt-2 right-0  z-5 top-auto">
-                    <li (click)="logout()">
-                        <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                            <i class="pi pi-power-off mr-3"></i>
-                            <span class="flex flex-column">
-                                <span class="font-semibold">Logout</span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-
-            <li class="right-sidebar-item">
-                <a tabindex="0" (click)="onRightMenuClick()">
-                    <i class="pi pi-align-right"></i>
-                </a>
-            </li>
+      </li>
+      <li class="static sm:relative">
+        <a tabindex="0" pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
+          leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+          <i class="pi pi-bell"></i>
+          <span class="topbar-badge">5</span>
+        </a>
+        <ul
+          class="list-none p-3 m-0 border-round shadow-2 absolute surface-overlay hidden origin-top w-full sm:w-19rem mt-2 right-0 z-5 top-auto">
+          <li>
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-shopping-cart mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">New Order</span>
+                <span class="text-color-secondary">You have <strong>3</strong> new orders.</span>
+              </span>
+            </a>
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-check-square mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Withdrawn Completed</span>
+                <span class="text-color-secondary">Funds are on their way.</span>
+              </span>
+            </a>
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-chart-line mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Monthly Reports</span>
+                <span class="text-color-secondary">Monthly Reports are ready.</span>
+              </span>
+            </a>
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-comments mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Comments</span>
+                <span class="text-color-secondary"><strong>2</strong> new comments.</span>
+              </span>
+            </a>
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-exclamation-circle mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Chargeback Request</span>
+                <span class="text-color-secondary"><strong>1</strong> to review.</span>
+              </span>
+            </a>
+          </li>
         </ul>
-    </div>
+      </li>
+
+      <li class="profile-item static sm:relative">
+        <a tabindex="0" pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
+          leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+          <img src="assets/demo/images/avatar/profile.jpg" alt="diamond-layout" class="profile-image" />
+          <span class="profile-name">Amelia Stone</span>
+        </a>
+        <ul
+          class="list-none p-3 m-0 border-round shadow-2 absolute surface-overlay hidden origin-top w-full sm:w-12rem mt-2 right-0  z-5 top-auto">
+          <li (click)="isShowAcount = true">
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-user mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Account</span>
+              </span>
+            </a>
+          </li>
+          <li (click)="logout()">
+            <a pRipple
+              class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+              <i class="pi pi-power-off mr-3"></i>
+              <span class="flex flex-column">
+                <span class="font-semibold">Logout</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+
+      <li class="right-sidebar-item">
+        <a tabindex="0" (click)="onRightMenuClick()">
+          <i class="pi pi-align-right"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="isShowAcount" [style]="{ width: '30%' }">
+  <ng-container *ngIf="isChangePassword; else Password">
+    <span class="p-text-secondary block mb-5">Update your information.</span>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="username" class="font-semibold w-6rem">Username</label>
+      <input pInputText id="username" class="flex-auto" autocomplete="off" [(ngModel)]="myself.username" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+      <label for="username" class="font-semibold w-6rem">Role</label>
+      <p-dropdown [options]="ROLE" [(ngModel)]="myself.role" optionLabel="name" placeholder="Role" />
+    </div>
+    <div class="mb-5">
+      <ng-container *ngIf="!imageUrl; else image">
+        <button pButton pRipple class="p-button-outlined" label="Choose image" icon="pi pi-fw pi-image"
+          (click)="isSelectImages = true"></button>
+      </ng-container>
+      <ng-template #image>
+        <img [src]="imageUrl" alt="ảnh" (click)="isSelectImages = true" class="cursor-pointer">
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-template #Password>
+    <span class="p-text-secondary block mb-5">Update your information.</span>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="password" class="font-semibold w-15rem">New password</label>
+      <input pInputText id="password" class="flex-auto" autocomplete="off" [(ngModel)]="myself.password" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+      <label for="confirmPassword" class="font-semibold w-15rem">Confirm new password</label>
+      <input pInputText id="confirmPassword" class="flex-auto" autocomplete="off"
+        [(ngModel)]="myself.confirmPassword" />
+    </div>
+  </ng-template>
+  <div class="flex justify-content-end gap-2">
+    <p-button class="w-full p-fluid" [label]="isChangePassword ? 'Password' : 'Account'" severity="secondary"
+      (click)="isChangePassword = !isChangePassword" />
+    <p-button class="w-full p-fluid" label="Save" (click)="submit()" />
+  </div>
+</p-dialog>
+<p-dialog header="Choose Picture" [modal]="true" [(visible)]="isSelectImages" [style]="{ width: '50%' }">
+  <div class="flex flex-wrap gap-4">
+    <div *ngFor="let image of avatar; let i = index"
+      (click)="imageUrl = image.itemImageSrc;selectedIndex = i; isSelectImages = false"
+      class="cursor-pointer hover:opacity-60 w-min" [ngClass]="{'opacity-60': selectedIndex == i}">
+      <img [src]="image.itemImageSrc" alt="ảnh" style="object-fit: contain;">
+    </div>
+  </div>
+</p-dialog>
