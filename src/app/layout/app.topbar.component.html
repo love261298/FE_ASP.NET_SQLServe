@@ -78,8 +78,8 @@
       <li class="profile-item static sm:relative">
         <a tabindex="0" pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
           leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
-          <img src="assets/demo/images/avatar/profile.jpg" alt="diamond-layout" class="profile-image" />
-          <span class="profile-name">Amelia Stone</span>
+          <img [src]="myself.imageUrl" [alt]="myself.username" class="profile-image" />
+          <span class="profile-name">{{myself.username}}</span>
         </a>
         <ul
           class="list-none p-3 m-0 border-round shadow-2 absolute surface-overlay hidden origin-top w-full sm:w-12rem mt-2 right-0  z-5 top-auto">
@@ -120,7 +120,7 @@
     </div>
     <div class="flex align-items-center gap-3 mb-5">
       <label for="username" class="font-semibold w-6rem">Role</label>
-      <p-dropdown [options]="ROLE" [(ngModel)]="myself.role" optionLabel="name" placeholder="Role" />
+      <p-dropdown [options]="ROLE" [(ngModel)]="myself.role" optionLabel="lable" placeholder="Chọn quyền truy cập" />
     </div>
     <div class="mb-5">
       <ng-container *ngIf="!imageUrl; else image">
@@ -134,14 +134,13 @@
   </ng-container>
   <ng-template #Password>
     <span class="p-text-secondary block mb-5">Update your information.</span>
-    <div class="flex align-items-center gap-3 mb-3">
+    <div class="flex align-items-center gap-3 mb-3 p-fluid">
       <label for="password" class="font-semibold w-15rem">New password</label>
-      <input pInputText id="password" class="flex-auto" autocomplete="off" [(ngModel)]="myself.password" />
+      <p-password id="password" class="flex-auto" [(ngModel)]="myself.password"  [toggleMask]="true" />
     </div>
-    <div class="flex align-items-center gap-3 mb-5">
+    <div class="flex align-items-center gap-3 mb-5 p-fluid">
       <label for="confirmPassword" class="font-semibold w-15rem">Confirm new password</label>
-      <input pInputText id="confirmPassword" class="flex-auto" autocomplete="off"
-        [(ngModel)]="myself.confirmPassword" />
+      <p-password id="confirmPassword" class="flex-auto" [(ngModel)]="myself.confirmPassword"  [toggleMask]="true" />
     </div>
   </ng-template>
   <div class="flex justify-content-end gap-2">

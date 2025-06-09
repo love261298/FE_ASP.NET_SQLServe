@@ -65,7 +65,7 @@ export class BlogEditComponent implements OnInit {
       const data = {
         title: this.postForm.value.title,
         description: this.postForm.value.description,
-        imageId: this.blog?.image?.id
+        imageUrl: this.blog?.imageUrl
       }
       if (this.imageUrl === this.blog?.image?.imageUrl) {
         this.blogService.update(this.blog.id, data).subscribe({
@@ -77,7 +77,7 @@ export class BlogEditComponent implements OnInit {
       } else {
         this.imageService.create(JSON.stringify(this.imageUrl)).subscribe({
           next: res => {
-            data.imageId = res.imageId
+            data.imageUrl = res.imageUrl
             if (!!this.blogId) {
               this.blogService.update(this.blog.id, data).subscribe({
                 next: res => {

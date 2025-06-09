@@ -27,6 +27,7 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { AppSearchComponent } from './app.search.component';
 import { AppFooterComponent } from './app.footer.component';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
     declarations: [
         AppLayoutComponent,
@@ -59,6 +60,7 @@ import { AppFooterComponent } from './app.footer.component';
         AppConfigModule,
         DialogModule,
         StyleClassModule,
+        PasswordModule 
     ]
 })
 export class AppLayoutModule { }

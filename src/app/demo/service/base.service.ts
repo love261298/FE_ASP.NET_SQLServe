@@ -20,11 +20,9 @@ export abstract class BaseService {
     return this.http.get<any>(`${this.apiUrl}/${this.url}/${id}`);
   }
   create(data: any): Observable<any> {
-    console.log(data)
     return this.http.post<any>(`${this.apiUrl}/${this.url}`, data);
   }
   update(id: any, data: any): Observable<any> {
-    console.log(data)
     return this.http.put<any>(`${this.apiUrl}/${this.url}/${id}`, data);
   }
   deleteById(id: any): Observable<any> {
