@@ -40,19 +40,19 @@
                     (click)="changeView(conversation)" tabindex="0">
                     <div class="flex align-items-center">
                         <div class="relative md:mr-3">
-                            <img [src]="conversation?.image?.imageUrl" alt="conversation"
+                            <img [src]="conversation?.userConversations[0]?.user?.image?.imageUrl" alt="conversation.user"
                                 class="w-3rem h-3rem border-circle shadow-4">
                             <span class="w-1rem h-1rem border-circle border-2 surface-border absolute"
-                                [ngClass]="{'bg-green-400': conversation.status === 'active', 'bg-red-400': conversation.status === 'busy', 'bg-yellow-400': 'away'}"
+                                [ngClass]="{'bg-green-400': conversation?.status === 'active', 'bg-red-400': conversation?.status === 'busy', 'bg-yellow-400': 'away'}"
                                 style="bottom: 2px; right: 2px"></span>
                         </div>
                         <div class="flex-column hidden md:flex">
-                            <span class="text-900 font-semibold block">{{conversation.username}}</span>
+                            <span class="text-900 font-semibold block">{{conversation?.userConversations[0]?.user?.username}}</span>
                             <span
                                 class="block text-600 text-overflow-ellipsis overflow-hidden white-space-nowrap w-10rem text-sm">lastMessage.text</span>
                         </div>
                     </div>
-                    <span class="text-700 font-semibold ml-auto hidden md:inline">{{conversation.lastSeen}}</span>
+                    <span class="text-700 font-semibold ml-auto hidden md:inline">{{conversation?.userConversations[0]?.user?.lastSeen}}</span>
                 </div>
             </div>
         </ng-template>

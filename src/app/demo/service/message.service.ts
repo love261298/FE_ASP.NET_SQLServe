@@ -5,9 +5,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageService extends BaseService{
+export class MessageService extends BaseService {
   protected override url: string = 'Messages';
-  getByBlogId(blogId:any) {
+  getByBlogId(blogId: any) {
     return this.http.get<any>(`${this.apiUrl}/${this.url}/blog/${blogId}`);
   }
+
+  getByConversationId(conversationId: any) {
+    return this.http.get<any>(`${this.apiUrl}/${this.url}/conversation/${conversationId}`);
+  }
 }
+

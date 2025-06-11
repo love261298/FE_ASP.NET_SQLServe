@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from 'src/app/demo/api/user';
-import { ChatService } from '../service/chat.service';
 import { UserService } from 'src/app/demo/service/user.service';
 import { ConversationService } from 'src/app/demo/service/conversation.service';
+import { UserConversationService } from 'src/app/demo/service/userConversation.service';
+import { MessageService } from 'src/app/demo/service/message.service';
 
 @Component({
   selector: 'app-chat-sidebar',
@@ -20,7 +20,9 @@ export class ChatSidebarComponent implements OnInit {
   conversations: any[] = [];
   constructor(
     private userService: UserService,
-    private conversationService: ConversationService
+    private conversationService: ConversationService,
+    private userConversationService: UserConversationService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -44,9 +46,28 @@ export class ChatSidebarComponent implements OnInit {
     const myId = localStorage.getItem('userId');
     this.conversationService.getConversationByUserId(myId).subscribe({
       next: res => {
-        console.log(res)
         this.conversations = res;
+        this.conversations.forEach((c: any) => {
+          this.userConversationService.GetUserConversation(c.id).subscribe({
+            next: res => {
+              c.userConversations = res.filter((uc: any) => {
+                return uc.userId != myId
+              })
+              c.userConversations.forEach((uc: any) => {
+                if (uc.userId != myId) {
+                  this.userService.getById(uc.userId).subscribe({
+                    next: res => {
+                      uc.user = res
+                    }
+                  })
+                }
+              })
+              console.log(c)
+            }
+          })
+        })
         this.filterConversation();
+        this.filterUser();
       },
       error: err => {
         console.log(err)
@@ -73,7 +94,11 @@ export class ChatSidebarComponent implements OnInit {
     if (user && this.myself && user.id != this.myself.id) {
       const userId = [user.id, this.myself.id]
       this.conversationService.create(userId).subscribe({
-        next: res => console.log(res),
+        next: res => {
+          console.log(res)
+          this.getConversation()
+          this.changeView(res.conversation)
+        },
         error: err => console.log(err)
       })
     }

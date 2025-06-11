@@ -1,10 +1,10 @@
 <div class="flex flex-column md:flex-row gap-5" style="height: calc(100vh - 168px);">
   <div class="md:w-25rem card p-0 h-full">
-    <app-chat-sidebar (onChange)="activeUser = $event"></app-chat-sidebar>
+    <app-chat-sidebar (onChange)="conversation = $event"></app-chat-sidebar>
   </div>
   <div class="flex-1 card p-0">
-    <ng-container *ngIf="activeUser">
-      <app-chat-box [user]="activeUser"></app-chat-box>
+    <ng-container *ngIf="conversation">
+      <app-chat-box [conversation]="conversation"></app-chat-box>
     </ng-container>
   </div>
 </div>

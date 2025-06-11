@@ -6,7 +6,7 @@ import { ChatService } from './service/chat.service';
 @Component({
     templateUrl: './chat.app.component.html'
 })
-export class ChatAppComponent{
+export class ChatAppComponent {
 
-    activeUser!: any;
+    conversation!: any;
 }
