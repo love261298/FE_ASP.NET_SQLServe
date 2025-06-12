@@ -42,37 +42,46 @@ export class ChatSidebarComponent implements OnInit {
       }
     });
   }
-  getConversation() {
+  getConversation(callback?: () => void) {
     const myId = localStorage.getItem('userId');
     this.conversationService.getConversationByUserId(myId).subscribe({
       next: res => {
         this.conversations = res;
-        this.conversations.forEach((c: any) => {
+        let done = 0;
+        res.forEach((c: any, index: any, arr: any) => {
           this.userConversationService.GetUserConversation(c.id).subscribe({
-            next: res => {
-              c.userConversations = res.filter((uc: any) => {
-                return uc.userId != myId
-              })
+            next: userCons => {
+              c.userConversations = userCons.filter((uc: any) => uc.userId != myId);
+              let userReqs = c.userConversations.length;
+              if (userReqs === 0) {
+                done++;
+                if (done === arr.length && callback) callback();
+                return;
+              }
+
               c.userConversations.forEach((uc: any) => {
-                if (uc.userId != myId) {
-                  this.userService.getById(uc.userId).subscribe({
-                    next: res => {
-                      uc.user = res
+                this.userService.getById(uc.userId).subscribe({
+                  next: user => {
+                    uc.user = user;
+                    userReqs--;
+                    if (userReqs === 0) {
+                      done++;
+                      if (done === arr.length && callback) callback();
                     }
-                  })
-                }
-              })
-              console.log(c)
+                  }
+                });
+              });
             }
-          })
-        })
+          });
+        });
+
         this.filterConversation();
         this.filterUser();
       },
       error: err => {
-        console.log(err)
+        console.log(err);
       }
-    })
+    });
   }
   filterUser() {
     if (this.searchValue === '') {
@@ -95,15 +104,18 @@ export class ChatSidebarComponent implements OnInit {
       const userId = [user.id, this.myself.id]
       this.conversationService.create(userId).subscribe({
         next: res => {
-          console.log(res)
-          this.getConversation()
-          this.changeView(res.conversation)
+          this.getConversation(() => {
+            this.changeView(res);
+          });
         },
         error: err => console.log(err)
       })
     }
   }
-  changeView(conversation: any) {
-    this.onChange.emit(conversation)
+  async changeView(conversation: any) {
+    this.searchValue = ''
+    this.getConversation()
+    const data = this.conversations.find((c: any) => conversation.id === c.id)
+    this.onChange.emit(data)
   }
 }
